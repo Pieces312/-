@@ -1,6 +1,6 @@
-# my-project
+# 仿网易云音乐 小程序
 
-> A Mpvue project
+> 主要使用mpvue+fly+网易云音乐api，开启每日打卡。
 
 ## Build Setup
 
