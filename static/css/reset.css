@@ -1,0 +1,34 @@
+html,body,div,h1,h2,h3,h4,h5,h6,p,ul,li,a,span,i,input,img {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* font-family: s */
+}
+
+ul, li {
+    list-style: none;
+}
+
+img {
+    width: 100%;
+    vertical-align: top;
+}
+
+a {
+    display: inline-block;
+    text-decoration: none;
+    color: #000;
+}
+
+span {
+    display: inline-block;
+}
+
+input {
+    outline: none;
+    border: 1px solid #ddd;
+}
+
+.iconfont {
+    display: inline-block;
+}

@@ -102,6 +102,11 @@ let baseWebpackConfig = {
           limit: 10000,
           name: utils.assetsPath('fonts/[name].[ext]')
         }
+      },
+      // less配置
+      {
+        test: /.less$/,
+        loader: 'style-loader!css-loader!less-loader'
       }
     ]
   },

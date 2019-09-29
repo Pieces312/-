@@ -3,12 +3,15 @@
     "pages/index/main",
     "pages/mine/main",
     "pages/counter/main",
-    "pages/account/main"
+    "pages/account/main",
+    "pages/login/main",
+    "pages/register/main",
+    "pages/search/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "Demo",
+    "navigationBarTitleText": "NeteaseCloudMusic",
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
