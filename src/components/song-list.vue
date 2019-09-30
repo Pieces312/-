@@ -1,8 +1,8 @@
 <template>
     <div class="song_list">
-        <div class="song_item" v-for="item in songList" :key="item.id">
+        <div class="song_item" v-for="item in filterList" :key="item.id">
             <div class="img">
-                <span class="volume"> <i class="iconfont icon-z"></i> {{item.playCount|formatPlayCount}}</span>
+                <span class="volume"> <i class="iconfont icon-z"></i> {{item.playCount}}</span>
                 <img :src="item.picUrl" alt="">
             </div>
             <div class="song_name">{{item.name}}</div>
@@ -15,11 +15,15 @@ export default {
   props: {
     songList: Array
   },
-  filters: {
-    formatPlayCount (val) {
-      if (val < 99999) return val
-      let _val = Math.round(val / 10000)
-      return _val + '万'
+  computed: {
+    filterList () {
+      this.songList.forEach(item => {
+        let count = item.playCount
+        let _val = Math.floor(count / 10000)
+        item.playCount = (count < 99999) ? count : _val + '万'
+      })
+
+      return this.songList
     }
   }
 }
