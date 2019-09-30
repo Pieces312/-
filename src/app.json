@@ -1,6 +1,9 @@
 {
   "pages": [
     "pages/index/main",
+    "pages/songSquare/main",
+    "pages/listenMusic/main",
+    "pages/recommendDaily/main",
     "pages/mine/main",
     "pages/counter/main",
     "pages/account/main",

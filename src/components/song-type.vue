@@ -2,7 +2,7 @@
   <div class="song_type">
     <div class="song_title">
       {{songtitle}}
-      <span class="song_tag">{{tagname}}</span>
+      <span class="song_tag" @click="more">{{tagname}}</span>
     </div>
 
     <div class="song_content">
@@ -20,6 +20,12 @@ export default {
       type: String
     },
     tagname: String
+  },
+  methods: {
+    // 点击标签按钮回调事件
+    more () {
+      this.$emit('tagClick')
+    }
   }
 }
 </script>

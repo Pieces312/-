@@ -2,7 +2,7 @@
   <div class="home_wrap">
     <!-- 顶部导航栏搜索 -->
     <div class="top_search">
-      <div class="icon"><i class="iconfont icon-luyin"></i></div>
+      <div class="icon"><i class="iconfont icon-luyin" @click="toPage('../listenMusic/main')"></i></div>
       <div class="search_box" @click="toSeach">
         <i class="iconfont icon-sousuo"></i>{{searchDefault}}
       </div>
@@ -22,34 +22,18 @@
 
     <!-- 分类 -->
     <div class="grid_type">
-      <div class="grid_item">
+      <div class="grid_item" v-for="item in gridType" 
+        :key="item.id"
+        @click="toPage(item.url)">
         <div class="icon">
-          <i class="iconfont icon-icon-"></i>
+          <i class="iconfont" :class="[item.icon]"></i>
         </div>
-        <div class="name">每日推荐</div>
-      </div>
-      <div class="grid_item">
-        <div class="icon">
-          <i class="iconfont icon-gedan"></i>
-        </div>
-        <div class="name">歌单</div>
-      </div>
-      <div class="grid_item">
-        <div class="icon">
-          <i class="iconfont icon-paixingbang"></i>
-        </div>
-        <div class="name">排行榜</div>
-      </div>
-      <div class="grid_item">
-        <div class="icon">
-          <i class="iconfont icon-xianxing_diantai"></i>
-        </div>
-        <div class="name">电台</div>
+        <div class="name">{{item.title}}</div>
       </div>
     </div>
 
     <!-- 推荐歌单 -->
-    <songType :songtitle="'推荐歌单'" :tagname="'歌单广场'">
+    <songType :songtitle="'推荐歌单'" :tagname="'歌单广场'" @tagClick="toPage('../songSquare/main')">
       <songList :songList='recommendData' />
     </songType>
 
@@ -70,7 +54,13 @@ export default {
     return {
       searchDefault: '',
       imgUrls: [],
-      recommendData: []
+      recommendData: [],
+      gridType: [
+        {id: 1, title: '每日推荐', icon: 'icon-icon-', url: '../recommendDaily/main'},
+        {id: 2, title: '歌单', icon: 'icon-gedan', url: '../songSquare/main'},
+        {id: 3, title: '排行榜', icon: 'icon-paixingbang', url: ''},
+        {id: 4, title: '电台', icon: 'icon-xianxing_diantai', url: ''}
+      ]
     }
   },
 
@@ -94,6 +84,10 @@ export default {
           this.searchDefault = data.data.showKeyword
         }
       })
+    },
+
+    toPage (url) {
+      wx.navigateTo({url})
     },
 
     // 跳转搜索页面
