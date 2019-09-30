@@ -1,6 +1,6 @@
 <template>
   <div>
-      <songLayout height="200px" 
+      <songLayout height="200px"
         bgImg="http://img1.imgtn.bdimg.com/it/u=3247749323,1379996244&fm=26&gp=0.jpg"
         maskColor="#fff"
         maskOpacity="60">

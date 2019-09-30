@@ -22,40 +22,47 @@
     "backgroundColor": "#f5f5f5",
     "selectedColor": "#ee3a23",
     "borderStyle": "white",
-
-    "list": [{
-      "text": "发现",
-      "pagePath": "pages/index/main",
-      "iconPath": "static/tabs/find.png",
-      "selectedIconPath": "static/tabs/find_active.png"
-    }, {
-      "text": "我的",
-      "pagePath": "pages/mine/main",
-      "iconPath": "static/tabs/my.png",
-      "selectedIconPath": "static/tabs/my_active.png"
-    }, {
-      "text": "账号",
-      "pagePath": "pages/account/main",
-      "iconPath": "static/tabs/account.png",
-      "selectedIconPath": "static/tabs/account_active.png"
-    }],
-
-    "items": [{
-      "name": "发现",
-      "pagePath": "pages/index/main",
-      "icon": "static/tabs/find.png",
-      "activeIcon": "static/tabs/find_active.png"
-    }, {
-      "name": "我的",
-      "pagePath": "pages/mine/main",
-      "icon": "static/tabs/my.png",
-      "activeIcon": "static/tabs/my_active.png"
-    }, {
-      "name": "账号",
-      "pagePath": "pages/account/main",
-      "icon": "static/tabs/account.png",
-      "activeIcon": "static/tabs/account_active.png"
-    }],
+    "list": [
+      {
+        "text": "发现",
+        "pagePath": "pages/index/main",
+        "iconPath": "static/tabs/find.png",
+        "selectedIconPath": "static/tabs/find_active.png"
+      },
+      {
+        "text": "我的",
+        "pagePath": "pages/mine/main",
+        "iconPath": "static/tabs/my.png",
+        "selectedIconPath": "static/tabs/my_active.png"
+      },
+      {
+        "text": "账号",
+        "pagePath": "pages/account/main",
+        "iconPath": "static/tabs/account.png",
+        "selectedIconPath": "static/tabs/account_active.png"
+      }
+    ],
+    "items": [
+      {
+        "name": "发现",
+        "pagePath": "pages/index/main",
+        "icon": "static/tabs/find.png",
+        "activeIcon": "static/tabs/find_active.png"
+      },
+      {
+        "name": "我的",
+        "pagePath": "pages/mine/main",
+        "icon": "static/tabs/my.png",
+        "activeIcon": "static/tabs/my_active.png"
+      },
+      {
+        "name": "账号",
+        "pagePath": "pages/account/main",
+        "icon": "static/tabs/account.png",
+        "activeIcon": "static/tabs/account_active.png"
+      }
+    ],
     "position": "bottom"
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }
