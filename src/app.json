@@ -1,12 +1,12 @@
 {
   "pages": [
+    "pages/account/main",
+    "pages/recommendDaily/main",
     "pages/index/main",
     "pages/songSquare/main",
     "pages/listenMusic/main",
-    "pages/recommendDaily/main",
     "pages/mine/main",
     "pages/counter/main",
-    "pages/account/main",
     "pages/login/main",
     "pages/register/main",
     "pages/search/main"
@@ -14,7 +14,7 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "NeteaseCloudMusic",
+    "navigationBarTitleText": "网易云音乐",
     "navigationBarTextStyle": "black"
   },
   "tabBar": {

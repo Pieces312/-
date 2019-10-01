@@ -1,16 +1,17 @@
 <template>
     <div class="song_layout" @touchend="dropDownEnd" @touchmove="dropDown">
-        <div class="layout_head" :style="{'height': _height + 'px'}">
-            <div class="mask" :style="{'background-color': maskColor, 'opacity': _opacity, 'transform': 'scale(' + scaleNum + ')'}">
-              <img :src="bgImg" alt="" />
-            </div>
-            <div class="layout_head_content">
-                <slot name="header"></slot>
-            </div>
-        </div>
-        <div class="layout_content">
-            <slot name="content"></slot>
-        </div>
+      <div class="top_tips">{{tipWord}}</div>
+      <div class="layout_head" :style="{'height': _height + 'px'}">
+          <div class="mask" :style="{'background-color': maskColor, 'opacity': _opacity, 'transform': 'scale(' + scaleNum + ')'}">
+            <img :src="bgImg" alt="" />
+          </div>
+          <div class="layout_head_content">
+              <slot name="header"></slot>
+          </div>
+      </div>
+      <div class="layout_content">
+          <slot name="content"></slot>
+      </div>
     </div>
 </template>
 
@@ -22,6 +23,10 @@ export default {
       type: String,
       default: '#ddd'
     },
+    tipWord: {
+      type: String,
+      default: '根据你的音乐口味，为你推荐好音乐'
+    },
     maskColor: String,
     maskOpacity: [String, Number],
     drop_down_animate: {
@@ -31,6 +36,7 @@ export default {
   },
   data () {
     return {
+      defaultHeight: this.height,
       scaleNum: 1
     }
   },
@@ -49,15 +55,13 @@ export default {
     dropDown (e) {
       if (!this.drop_down_animate) return
       let _h = parseFloat(this._height)
-      if (e.pageY > 200) {
-        this.height = _h + 0.2
-        this.scaleNum += 0.0005
-      }
+      this.height = _h + 0.2
+      this.scaleNum += 0.0005
     },
 
     dropDownEnd (e) {
       if (!this.drop_down_animate) return
-      this.height = 200
+      this.height = this.defaultHeight
       this.scaleNum = 1
     }
   }
@@ -67,6 +71,21 @@ export default {
 <style lang="less" scoped>
 .song_layout {
   overflow: visible;
+
+  .top_tips {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9;
+    color: #fff;
+    overflow: hidden;
+    opacity: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: center;
+    animation: fadeOut 3s ease;
+  }
 
   .layout_head {
       position: relative;
@@ -104,6 +123,20 @@ export default {
       z-index: 9;
       background: #fff;
       border-radius: 15px 15px 0 0;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  80% {
+    opacity: 1
+  }
+
+  100% {
+    opacity: 0;
   }
 }
 </style>
