@@ -1,5 +1,7 @@
 {
   "pages": [
+    "pages/login/main",
+    "pages/login/login",
     "pages/account/main",
     "pages/recommendDaily/main",
     "pages/index/main",
@@ -7,7 +9,6 @@
     "pages/listenMusic/main",
     "pages/mine/main",
     "pages/counter/main",
-    "pages/login/main",
     "pages/register/main",
     "pages/search/main"
   ],

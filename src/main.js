@@ -4,7 +4,7 @@ import App from './App'
 // 引入weui
 import 'mpvue-weui/src/style/weui.css'
 import '../static/css/iconfont.css'
-import '../static/css/reset.css'
+// import '../static/css/reset.less'
 
 // 使用fly
 var Fly = require('flyio/dist/npm/wx')
