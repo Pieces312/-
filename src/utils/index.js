@@ -18,7 +18,14 @@ export function formatTime (date) {
   return `${t1} ${t2}`
 }
 
+// 验证手机号码
+export const formatPhone = function (val) {
+  let phone = /^1[3456789]\d{9}$/.test(val)
+  return phone ? '' : '手机号码有误，请重填'
+}
+
 export default {
   formatNumber,
-  formatTime
+  formatTime,
+  formatPhone
 }

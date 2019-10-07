@@ -37,7 +37,7 @@ export default {
     },
 
     toLogin () {
-      wx.navigateTo({url: 'login'})
+      wx.navigateTo({url: 'login/main'})
     }
   }
 }
