@@ -24,8 +24,14 @@ export const formatPhone = function (val) {
   return phone ? '' : '手机号码有误，请重填'
 }
 
+// 随机取数组中任意一项
+export const getRandomItem = function (arr) {
+  return arr[Math.floor(Math.random() * arr.length)]
+}
+
 export default {
   formatNumber,
   formatTime,
-  formatPhone
+  formatPhone,
+  getRandomItem
 }

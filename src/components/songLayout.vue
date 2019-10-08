@@ -116,7 +116,7 @@ export default {
 
   .layout_content {
       margin-top: -15px;
-      padding: 15px;
+      padding: 0 15px;
       width: 100%;
       min-height: 40px;
       position: relative;

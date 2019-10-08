@@ -11,24 +11,13 @@
 
     <div class="btn-group">
       <button class="login" @click="toLogin">手机号登录</button>
-      <p>同意 <span>《服务条款》</span>和<span>《隐私政策》</span></p>
+      <!-- <button class="register" @click="toRegister">注册</button> -->
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  components: {
-  },
-
-  data () {
-    return {
-    }
-  },
-
-  created () {
-  },
-
   methods: {
     goBack () {
       wx.navigateBack({
@@ -38,6 +27,10 @@ export default {
 
     toLogin () {
       wx.navigateTo({url: 'login/main'})
+    },
+
+    toRegister () {
+      wx.navigateTo({url: 'register/main'})
     }
   }
 }
@@ -52,6 +45,7 @@ export default {
     position: fixed;
     top: 15px;
     left: 15px;
+    z-index: 10;
     font-size: 30px;
     color: #fff;
   }
@@ -122,16 +116,13 @@ export default {
     color: #f89d9d;
 
     button {
-      margin: 0 auto 15px;
+      margin: 15px auto;
       width: 75%;
+      display: block;
       font-size: 15px;
       color: #ee3a23;
       background-color: #fff;
       border-radius: 20px;
-    }
-
-    span {
-      color: #fff;
     }
   }
 }

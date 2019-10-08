@@ -1,10 +1,12 @@
 {
   "pages": [
-    "pages/login/login/main",
-    "pages/index/main",
-    "pages/login/main",
-    "pages/account/main",
     "pages/recommendDaily/main",
+    "pages/account/main",
+    "pages/login/main",
+    "pages/login/login/main",
+    "pages/login/password/main",
+    "pages/index/main",
+    "pages/login/register/main",
     "pages/songSquare/main",
     "pages/listenMusic/main",
     "pages/mine/main",

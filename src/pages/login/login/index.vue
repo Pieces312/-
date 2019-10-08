@@ -1,6 +1,5 @@
 <template>
   <div class="login_wrap">
-    <p>未注册的手机号登录后将自动创建账号</p>
     <div class="input_row">
       <label>+86</label>
       <input type="tel" v-model="tel" placeholder="输入手机号" />
@@ -8,13 +7,18 @@
     <div class="next">
       <button :class="{'disabled': tel == ''}" @click="next">下一步</button>
     </div>
+    <mptoast />
   </div>
 </template>
 
 <script>
 import { formatPhone } from '@/utils'
+import mptoast from 'mptoast'
 
 export default {
+  components: {
+    mptoast
+  },
   data () {
     return {
       disabled: true,
@@ -24,14 +28,14 @@ export default {
 
   methods: {
     next () {
+      if (!this.tel) return
       const result = formatPhone(this.tel)
-      if (result) {
-        wx.showToast({
-          title: '手机号应该是11位数字',
-          image: '../../../../static/images/fail.png',
-          duration: 3000,
-          mask: true
-        })
+      if (this.tel.length < 11) {
+        this.$mptoast('手机号应该是11位数字', 'error')
+      } else if (result) {
+        this.$mptoast('手机号格式有误：非法手机号', 'error')
+      } else {
+        wx.navigateTo({url: '../password/main?tel=' + this.tel})
       }
     }
   }
@@ -41,7 +45,7 @@ export default {
 
 <style lang="less" scoped>
 .login_wrap {
-  padding: 30px 15px;
+  padding: 0 15px;
 
   p {
     color: #999;

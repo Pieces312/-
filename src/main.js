@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import App from './App'
+import mpvueToastRegistry from 'mptoast/src/registry'
 
 // 引入weui
 import 'mpvue-weui/src/style/weui.css'
 import '../static/css/iconfont.css'
-// import '../static/css/reset.less'
+mpvueToastRegistry(Vue)
 
 // 使用fly
 var Fly = require('flyio/dist/npm/wx')
