@@ -61,7 +61,7 @@ export default {
     this.defaultKeyword = options.default
   },
 
-  created () {
+  onShow () {
     this.getHotData()
   },
 

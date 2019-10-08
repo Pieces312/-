@@ -1,12 +1,12 @@
 <template>
     <div class="common-song" :class="{'songNum': type === 'number'}">
         <div class="song-pic">
-            <span class="num" v-if="type === 'number'">1</span>
-            <img v-else src="http://p2.music.126.net/lRE0QHTUkA_DxlB14uzSqg==/109951164207703933.jpg?param=50y50" alt="">
+            <span class="num" v-if="type === 'number'">10</span>
+            <img v-else :src="songInfo.artists.picUrl" alt="">
         </div>
         <div class="song-info" :style="{'width': type === 'number' ? 'calc(100% - 90px)' : 'calc(100% - 100px)'}">
-            <p class="song-name">Day Dreaming</p>
-            <p>Jack & Jack - A Good Friend Is Me. hhhhhh</p>
+            <p class="song-name">{{songInfo.name}}</p>
+            <p>{{songInfo.artists.name}} {{songInfo.album.name}}</p>
         </div>
         <div class="song-handle">
             <i class="iconfont icon-bofang"></i>
@@ -21,20 +21,21 @@ export default {
     type: {
       type: String,
       default: 'number'
-    }
+    },
+    songInfo: Object
   }
 }
 </script>
 
 <style lang="less" scoped>
 .common-song {
+    margin-bottom: 10px;
     display: flex;
     align-items: center;
 
     .song-pic {
         width: 40px;
         height: 40px;
-        text-align: center;
 
         img {
             width: 100%;
@@ -71,8 +72,12 @@ export default {
     &.songNum {
         .song-pic {
             width: 25px;
+            position: relative;
         }
         .num {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
             font-size: 15px;
             font-weight: 500;
             color: #777;

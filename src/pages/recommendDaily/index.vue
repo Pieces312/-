@@ -1,35 +1,46 @@
 <template>
-  <songLayout height="150px"
-    :bgImg="bg.pic"
-    maskColor="#fff"
-    maskOpacity="60">
-      <!-- 头部样式 -->
-      <div slot="header">
-        <div class="head">
-          <div class="date">
-            <span class="day">{{day}}</span>
-            <span style="margin: 0 5px;"> / </span>
-            <span class="month">{{month}}</span>
+  <div>
+    <songLayout height="150px"
+      :bgImg="bg.pic"
+      maskColor="#fff"
+      maskOpacity="60">
+        <!-- 头部样式 -->
+        <div slot="header">
+          <div class="head">
+            <div class="date">
+              <span class="day">{{day}}</span>
+              <span style="margin: 0 5px;"> / </span>
+              <span class="month">{{month}}</span>
+            </div>
+            <div class="txt">每日歌曲推荐</div>
           </div>
-          <div class="txt">每日歌曲推荐</div>
-        </div>
-      </div>
-
-      <!-- 列表部分 -->
-      <div slot="content">
-        <div class="ct-head">
-          <p> <i class="iconfont icon-bofang"></i> 播放全部</p>
-          <span class="multiple">多选</span>
         </div>
 
-        <div class="ct-songs">
-          <commonSong />
+        <!-- 列表部分 -->
+        <div slot="content">
+          <div class="ct-head">
+            <p> <i class="iconfont icon-bofang"></i> 播放全部</p>
+            <span class="multiple">多选</span>
+          </div>
+
+          <div class="ct-songs">
+            <commonSong v-for="item in songList" 
+              :key="item.id"
+              :songInfo='item'
+              type="pictrue" />
+            <!-- <commonSong /> -->
+          </div>
         </div>
-      </div>
-  </songLayout>
+
+    </songLayout>
+    <!-- 弹窗组件 -->
+    <mptoast />
+  </div>
+  
 </template>
 
 <script>
+import mptoast from 'mptoast'
 import songLayout from '@/components/songLayout'
 import commonSong from '@/components/common-song'
 import { getRandomItem } from '@/utils'
@@ -37,7 +48,8 @@ import { getRandomItem } from '@/utils'
 export default {
   components: {
     songLayout,
-    commonSong
+    commonSong,
+    mptoast
   },
 
   data () {
@@ -49,12 +61,14 @@ export default {
       day: day < 10 ? '0' + day : day,
       month: month < 10 ? '0' + month : month,
       imgUrls: [],
-      bg: null
+      bg: null,
+      songList: []
     }
   },
 
-  created () {
+  onShow () {
     this.getBannerData()
+    this.getSongList()
   },
 
   methods: {
@@ -64,6 +78,34 @@ export default {
         if (data.code === 200) {
           this.imgUrls = data.banners
           this.bg = getRandomItem(this.imgUrls)
+        }
+      })
+    },
+
+    // 获取每日推荐的歌曲
+    getSongList () {
+      this.$fly.get('http://localhost:3000/recommend/songs').then(res => {
+        let data = res.data
+        console.log(data)
+        if (data.code === 200) {
+          this.songList = data.data.dailySongs
+        }
+      }).catch(error => {
+        let err = error.response.data
+        if (err.code === 301) {
+          console.log(err)
+          wx.showModal({
+            title: '需要登录，请先登录。',
+            success: function (option) {
+              if (option.confirm) {
+                wx.navigateTo({url: '../login/login/main'})
+              } else if (option.cancel) {
+                wx.navigateBack({
+                  delta: 1
+                })
+              }
+            }
+          })
         }
       })
     }

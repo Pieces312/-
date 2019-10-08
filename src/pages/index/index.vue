@@ -69,7 +69,7 @@ export default {
     songList
   },
 
-  created () {
+  onShow () {
     this.getDefaultkeyword()
     this.getBannerData()
     this.getRecommendData()
