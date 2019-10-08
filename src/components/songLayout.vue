@@ -89,18 +89,23 @@ export default {
 
   .layout_head {
       position: relative;
+      overflow: hidden;
       background-color: #686565;
       background-position: center center;
       background-size: cover;
 
       .mask {
-          width: 100%;
-          height: 100%;
+          width: 110%;
+          height: 110%;
           position: absolute;
           top: 0;
           left: 0;
           z-index: 1;
-          overflow: hidden;
+
+          img {
+            width: 100%;
+            height: 100%;
+          }
       }
 
       .layout_head_content {

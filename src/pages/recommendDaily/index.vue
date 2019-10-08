@@ -100,9 +100,9 @@ export default {
               if (option.confirm) {
                 wx.navigateTo({url: '../login/login/main'})
               } else if (option.cancel) {
-                wx.navigateBack({
-                  delta: 1
-                })
+                // wx.navigateBack({
+                //   delta: 1
+                // })
               }
             }
           })

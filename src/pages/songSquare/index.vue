@@ -41,12 +41,7 @@ export default {
   data () {
     return {
       active: 0,
-      imgUrls: [
-        'http://img1.imgtn.bdimg.com/it/u=3247749323,1379996244&fm=26&gp=0.jpg',
-        'http://img0.imgtn.bdimg.com/it/u=123807196,3598291508&fm=26&gp=0.jpg',
-        'http://img0.imgtn.bdimg.com/it/u=2786741331,312930537&fm=26&gp=0.jpg',
-        'http://img5.imgtn.bdimg.com/it/u=4096944214,1677787421&fm=26&gp=0.jpg'
-      ],
+      imgUrls: [],
 
       songsList: []
     }
