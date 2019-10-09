@@ -2,11 +2,11 @@
     <div class="common-song" :class="{'songNum': type === 'number'}">
         <div class="song-pic">
             <span class="num" v-if="type === 'number'">10</span>
-            <img v-else :src="songInfo.artists.picUrl" alt="">
+            <img v-else :src="songInfo.artists[0].picUrl" alt="">
         </div>
         <div class="song-info" :style="{'width': type === 'number' ? 'calc(100% - 90px)' : 'calc(100% - 100px)'}">
             <p class="song-name">{{songInfo.name}}</p>
-            <p>{{songInfo.artists.name}} {{songInfo.album.name}}</p>
+            <p>{{songInfo.artists[0].name}} {{songInfo.album.name}}</p>
         </div>
         <div class="song-handle">
             <i class="iconfont icon-bofang"></i>

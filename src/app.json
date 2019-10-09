@@ -2,6 +2,8 @@
   "pages": [
     "pages/index/main",
     "pages/recommendDaily/main",
+    "pages/playlist/main",
+    "pages/searchResult/main",
     "pages/account/main",
     "pages/login/main",
     "pages/login/login/main",

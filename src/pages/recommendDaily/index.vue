@@ -1,7 +1,8 @@
 <template>
   <div>
-    <songLayout height="150px"
+    <songLayout v-if="bg" height="150px"
       :bgImg="bg.pic"
+      tipWord='根据你的音乐口味，为你推荐好音乐'
       maskColor="#fff"
       maskOpacity="60">
         <!-- 头部样式 -->
@@ -28,7 +29,6 @@
               :key="item.id"
               :songInfo='item'
               type="pictrue" />
-            <!-- <commonSong /> -->
           </div>
         </div>
 
@@ -84,16 +84,17 @@ export default {
 
     // 获取每日推荐的歌曲
     getSongList () {
+      this.$fly.get('http://localhost:3000/login/refresh').then(response => {
+        console.log(response)
+      })
       this.$fly.get('http://localhost:3000/recommend/songs').then(res => {
         let data = res.data
-        console.log(data)
         if (data.code === 200) {
           this.songList = data.data.dailySongs
         }
       }).catch(error => {
         let err = error.response.data
         if (err.code === 301) {
-          console.log(err)
           wx.showModal({
             title: '需要登录，请先登录。',
             success: function (option) {

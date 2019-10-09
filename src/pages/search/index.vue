@@ -4,7 +4,7 @@
     <div class="top_search">
       <div class="search_box">
         <i class="iconfont icon-sousuo"></i>
-        <input type="text" auto-focus :placeholder="defaultKeyword">
+        <input type="text" v-model="searchWord" auto-focus @input='searchResult' :placeholder="defaultKeyword">
       </div>
       <div class="cancel">
         <span @click="back">取消</span>
@@ -29,7 +29,9 @@
         热搜榜
       </div>
       <div class="hot_list">
-        <div class="hot_item" v-for="(item, index) in hotData" :key="index">
+        <div class="hot_item" v-for="(item, index) in hotData" 
+             :key="index"
+             @click="toResult(item.searchWord)">
           <span class="number" :class="{'top': index < 3}">{{index+1}}</span>
           <div class="hot_content">
             <h2>
@@ -40,6 +42,17 @@
             <span class="clickCount">{{item.score}}</span>
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- 搜索结果 -->
+    <div class="search_result" v-if="searchWord">
+      <div class="search_item search_current" @click="toResult(searchWord)">搜索 “{{searchWord}}”</div>
+      <div class="search_item" v-for="(item, index) in songs" 
+           :key='index'
+           @click="toResult(item.keyword)">
+        <i class="iconfont icon-sousuo"></i>
+        <p>{{item.keyword}}</p>
       </div>
     </div>
   </div>
@@ -53,12 +66,17 @@ export default {
   data () {
     return {
       defaultKeyword: '',
-      hotData: []
+      hotData: [],
+      searchWord: '',
+      songs: [],
+      searchHistory: []
     }
   },
 
   onLoad (options) {
     this.defaultKeyword = options.default
+    // let arr = wx.getStorageSync('history')
+    // console.log(arr)
   },
 
   onShow () {
@@ -80,6 +98,28 @@ export default {
           this.hotData = data.data
         }
       })
+    },
+
+    // 搜索歌曲
+    searchResult () {
+      if (!this.searchWord) return
+
+      this.$fly.get('http://localhost:3000/search/suggest?keywords=' + this.searchWord + '&type=mobile').then(res => {
+        let data = res.data.result
+        this.songs = data.allMatch
+      })
+    },
+
+    // 跳转到结果页面
+    toResult (word) {
+      // this.searchHistory.push(item.keyword)
+      // let str = this.searchHistory.toString()
+      // console.log(str)
+      // wx.setStorageSync({
+      //   key: 'history',
+      //   data: str
+      // })
+      wx.navigateTo({url: '../searchResult/main?keywords=' + word})
     }
   }
 }
@@ -231,6 +271,41 @@ export default {
           color: #666;
         }
       }
+    }
+  }
+}
+
+// 搜索结果
+.search_result {
+  width: 100%;
+  height: calc(100vh - 50px);
+  position: fixed;
+  top: 50px;
+  left: 0;
+  z-index: 9;
+  overflow: scroll;
+  background: #fff;
+
+  .search_item {
+    padding-left: 15px;
+    display: flex;
+    font-size: 13px;
+    line-height: 40px;
+
+    &.search_current {
+      color: #6399c5;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .iconfont {
+      width: 25px;
+      font-size: 15px;
+      color: #999;
+    }
+
+    p {
+      width: calc(100% - 25px);
+      border-bottom: 1px solid #ddd;
     }
   }
 }

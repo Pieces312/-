@@ -1,6 +1,8 @@
 <template>
     <div class="song_list">
-        <div class="song_item" v-for="item in filterList" :key="item.id">
+        <div class="song_item" v-for="item in filterList" 
+             :key="item.id"
+             @click="clickHandle(item)">
             <div class="img">
                 <span class="volume"> <i class="iconfont icon-z"></i> {{item.playCount}}</span>
                 <img :src="item.picUrl" alt="">
@@ -24,6 +26,12 @@ export default {
       })
 
       return this.songList
+    }
+  },
+
+  methods: {
+    clickHandle (item) {
+      this.$emit('clickHandle', item)
     }
   }
 }

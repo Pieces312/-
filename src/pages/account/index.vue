@@ -2,13 +2,13 @@
     <div class="account_wrap">
          <!-- 未登录状态 -->
         <div class="user_info">
-            <div class="not_logged" v-if='!isLogin'>
+            <div class="not_logged" v-if="loginCode === 301">
                 <p>登录网易云音乐</p>
                 <p>手机电脑多端登录，尽享海量高品质音乐</p>
                 <button class="btn" @click="toPage">立即登录</button>
             </div>
 
-            <div class="login_in" v-else>
+            <div class="login_in" v-if="loginCode === 200 && userInfo">
                 <div class="user_avatar">
                     <div class="avatar_img"><img :src="userInfo.profile.avatarUrl" alt=""></div>
                     <div class="user_name">
@@ -94,24 +94,30 @@ export default {
         {id: 'nav_8', icon: 'icon-guanyu', title: '关于', btmBar: false}
       ],
 
-      isLogin: false,
+      loginCode: '',
       userInfo: null
     }
   },
 
   onShow () {
     let id = wx.getStorageSync('userId')
+    // 获取登录状态
+    // this.$fly.get('http://localhost:3000/login/status').then(response => {
+    //   let data = response.data
+    this.loginCode = 200
 
     this.$fly.get('http://localhost:3000/user/detail?uid=' + id).then(res => {
       let data = res.data
       if (data.code === 200) {
-        this.isLogin = true
-        console.log(data)
         this.userInfo = data
       }
     }).catch(() => {
-      this.isLogin = false
+      this.loginCode = 301
     })
+    // }).catch(error => {
+    //   let err = error.response.data
+    //   this.loginCode = err.code
+    // })
   },
 
   methods: {

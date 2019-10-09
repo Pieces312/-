@@ -34,7 +34,7 @@
 
     <!-- 推荐歌单 -->
     <songType :songtitle="'推荐歌单'" :tagname="'歌单广场'" @tagClick="toPage('../songSquare/main')">
-      <songList :songList='recommendData' />
+      <songList :songList='recommendData' @clickHandle="toPlaylist" />
     </songType>
 
     <!-- 新碟 -->
@@ -113,6 +113,11 @@ export default {
           this.recommendData = data.result
         }
       })
+    },
+
+    // 点击进入歌单详情
+    toPlaylist (item) {
+      wx.navigateTo({url: '../playlist/main?id=' + item.id})
     }
   }
 }

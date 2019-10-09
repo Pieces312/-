@@ -37,7 +37,7 @@ export default {
         this.$fly.get('http://localhost:3000/login/cellphone?phone=' + this.tel + '&password=' + this.password).then(res => {
           let data = res.data
           this.$mptoast('登录成功')
-          wx.setStorage({
+          wx.setStorageSync({
             key: 'userId',
             data: data.account.id
           })

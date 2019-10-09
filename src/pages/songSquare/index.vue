@@ -22,11 +22,26 @@
           </swiper-item>
         </block>
       </swiper>
+      <swiper v-else previous-margin="110px" next-margin="110px">
+        <block>
+          <swiper-item>
+            <div class="song_item current" style="width: 150px">
+              <div class="pic">
+                <image src="http://img1.imgtn.bdimg.com/it/u=1027404258,1685705977&fm=26&gp=0.jpg"></image>
+                <div class="play">
+                  <i class="iconfont icon-bofang2"></i>
+                </div>
+              </div>
+              <div class="desc">网易好音乐</div>
+            </div>
+          </swiper-item>
+        </block>
+      </swiper>
     </div>
 
     <!-- 歌单列表 -->
     <div class="songs_list">
-      <songList :songList='songsList' />
+      <songList :songList='songsList' @clickHandle="toPlaylist" />
     </div>
   </div>
 </template>
@@ -65,6 +80,11 @@ export default {
           this.songsList = data.result
         }
       })
+    },
+
+    // 点击进入歌单详情
+    toPlaylist (item) {
+      wx.navigateTo({url: '../playlist/main?id=' + item.id})
     }
   }
 }
@@ -106,6 +126,7 @@ export default {
     position: relative;
 
     image {
+      width: 100%;
       height: 100%;
     }
 
