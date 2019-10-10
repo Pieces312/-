@@ -4,7 +4,10 @@
     <div class="top_search">
       <div class="search_box">
         <i class="iconfont icon-sousuo"></i>
-        <input type="text" v-model="searchWord" auto-focus @input='searchResult' :placeholder="defaultKeyword">
+        <input type="text" v-model="searchWord"
+               @input='searchResult(searchWord)'
+               @confirm="search"
+               :placeholder="defaultKeyword">
       </div>
       <div class="cancel">
         <span @click="back">取消</span>
@@ -101,13 +104,18 @@ export default {
     },
 
     // 搜索歌曲
-    searchResult () {
-      if (!this.searchWord) return
+    searchResult (keyword) {
+      if (!keyword) return
 
-      this.$fly.get('http://localhost:3000/search/suggest?keywords=' + this.searchWord + '&type=mobile').then(res => {
+      this.$fly.get('http://localhost:3000/search/suggest?keywords=' + keyword + '&type=mobile').then(res => {
         let data = res.data.result
         this.songs = data.allMatch
       })
+    },
+
+    search () {
+      let word = this.searchWord || this.defaultKeyword
+      this.toResult(word)
     },
 
     // 跳转到结果页面
@@ -119,6 +127,7 @@ export default {
       //   key: 'history',
       //   data: str
       // })
+      console.log(word)
       wx.navigateTo({url: '../searchResult/main?keywords=' + word})
     }
   }

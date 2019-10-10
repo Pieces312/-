@@ -2,7 +2,7 @@
   <Loading v-if='loading' />
   <div v-else class="result_wrap">
     <div class="result_title">单曲</div>
-    <div class="songs_list">
+    <div class="songs_list" v-if="songs.length">
         <div class="song_item" v-for="(item, index) in songs" :key="index">
           <div class="song_info">
             <p class="song_name">{{item.name}}</p>
@@ -14,6 +14,7 @@
           </div>
         </div>
     </div>
+    <div v-else>暂无搜索内容...</div>
 
     <div class="playlist" v-if="playlist.length">
       <div class="result_title">歌单</div>
@@ -58,9 +59,11 @@ export default {
     this.loading = true
     this.$fly.get('http://localhost:3000/search/suggest?keywords=' + options.keywords).then(res => {
       let data = res.data.result
-      this.songs = data.songs
-      this.playlist = data.playlists
       this.loading = false
+      if (data.songs) {
+        this.songs = data.songs
+        this.playlist = data.playlists
+      }
     })
   },
 

@@ -9,7 +9,7 @@
               <slot name="header"></slot>
           </div>
       </div>
-      <div class="layout_content">
+      <div class="layout_content" id="layout_content">
           <slot name="content"></slot>
       </div>
     </div>
@@ -52,6 +52,10 @@ export default {
       return this.maskOpacity < 1 ? this.maskOpacity : this.maskOpacity / 100
     }
   },
+
+  mounted () {
+  },
+
   methods: {
     dropDown (e) {
       if (!this.drop_down_animate) return
@@ -102,7 +106,7 @@ export default {
           top: 50%;
           left: 50%;
           transform: translate(-50%, -50%);
-          z-index: 1;
+           z-index: 1;
 
           img {
             width: 100%;
