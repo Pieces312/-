@@ -52,7 +52,10 @@
           </div>
 
           <div class="ct-songs">
-            <div class="song-item" v-for="(item, index) in playlist.tracks" :key="item.id">
+            <div class="song-item" 
+                 v-for="(item, index) in playlist.tracks" 
+                 :key="item.id"
+                 @click="toSongDetail(item)">
               <div class="song-pic">
                 <span class="num">{{index+1}}</span>
               </div>
@@ -123,6 +126,11 @@ export default {
 
     closeModal (e) {
       this.showCover = e
+    },
+
+    // 到播放页面
+    toSongDetail (item) {
+      wx.navigateTo({url: '../songDetail/main?id=' + item.id})
     }
   }
 }

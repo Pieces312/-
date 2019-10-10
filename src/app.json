@@ -3,6 +3,7 @@
     "pages/index/main",
     "pages/recommendDaily/main",
     "pages/playlist/main",
+    "pages/songDetail/main",
     "pages/searchResult/main",
     "pages/account/main",
     "pages/login/main",
