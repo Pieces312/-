@@ -40,7 +40,8 @@
     </div>
 
     <!-- 歌单列表 -->
-    <div class="songs_list">
+    <Loading v-if="loading" />
+    <div v-else class="songs_list">
       <songList :songList='songsList' @clickHandle="toPlaylist" />
     </div>
   </div>
@@ -48,21 +49,24 @@
 
 <script>
 import songList from '@/components/song-list'
+import Loading from '@/components/loading'
 
 export default {
   components: {
-    songList
+    songList,
+    Loading
   },
   data () {
     return {
       active: 0,
       imgUrls: [],
 
-      songsList: []
+      songsList: [],
+      loading: false
     }
   },
 
-  onShow () {
+  onLoad () {
     this.getRecommendData()
   },
 
@@ -74,10 +78,12 @@ export default {
 
     // 获取推荐歌单数据
     getRecommendData () {
+      this.loading = true
       this.$fly.get('http://localhost:3000/personalized').then(res => {
         let data = res.data
         if (data.code === 200) {
           this.songsList = data.result
+          this.loading = false
         }
       })
     },

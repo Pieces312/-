@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <songLayout v-if="playlist" height="270px"
+  <div :class="{'over_hidden': showCover}">
+    <songLayout v-if="playlist && !loadingModal" height="270px"
       :bgImg="playlist.coverImgUrl"
       :filter='12'
       maskColor="#fff"
@@ -17,7 +17,7 @@
                 {{playlist.creator.nickname}}
                 <i class="iconfont icon-icon--"></i>
               </div>
-              <p class="play_desc">
+              <p class="play_desc" @click="showPlaycover">
                 {{playlist.description}}
                 <i class="iconfont icon-icon--"></i>
               </p>
@@ -69,27 +69,37 @@
         </div>
 
     </songLayout>
-    <!-- 弹窗组件 -->
-    <mptoast />
+    <Loading v-if="loadingModal" />
+
+    <!-- 点击描述显示歌单封面 -->
+    <playcover v-if="playlist" 
+              v-model="showCover" 
+              :showCover="showCover"
+              :coverInfo='playlist'
+              @closeModal="closeModal" />
   </div>
   
 </template>
 
 <script>
-import mptoast from 'mptoast'
 import songLayout from '@/components/songLayout'
 import commonSong from '@/components/common-song'
+import Loading from '@/components/loading'
+import playcover from './playcover'
 
 export default {
   components: {
     songLayout,
     commonSong,
-    mptoast
+    Loading,
+    playcover
   },
 
   data () {
     return {
-      playlist: null
+      playlist: null,
+      loadingModal: true,
+      showCover: false
     }
   },
 
@@ -97,15 +107,35 @@ export default {
     this.$fly.get('http://localhost:3000/playlist/detail?id=' + options.id).then(res => {
       let data = res.data.playlist
       this.playlist = data
+      this.loadingModal = false
     })
   },
 
+  onUnload () {
+    this.playlist = []
+    this.loadingModal = true
+  },
+
   methods: {
+    showPlaycover () {
+      this.showCover = true
+    },
+
+    closeModal (e) {
+      this.showCover = e
+    }
   }
 }
 </script>
 
 <style lang="less" scoped>
+.over_hidden {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  overflow: hidden;
+}
+
 // 头部日期部分
 .playlist {
   display: flex;

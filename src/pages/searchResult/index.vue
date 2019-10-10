@@ -1,38 +1,45 @@
 <template>
-    <div class="result_wrap">
-      <div class="result_title">单曲</div>
-      <div class="songs_list">
-          <div class="song_item" v-for="(item, index) in songs" :key="index">
-            <div class="song_info">
-              <p class="song_name">{{item.name}}</p>
-              <p>{{item.artists[0].name}} {{item.album.name}}</p>
-              <p v-if="item.alias.length">{{item.alias[0]}}</p>
-            </div>
-            <div class="song_handle">
-              <i class="iconfont icon-gengduoxiao"></i>
-            </div>
+  <Loading v-if='loading' />
+  <div v-else class="result_wrap">
+    <div class="result_title">单曲</div>
+    <div class="songs_list">
+        <div class="song_item" v-for="(item, index) in songs" :key="index">
+          <div class="song_info">
+            <p class="song_name">{{item.name}}</p>
+            <p>{{item.artists[0].name}} {{item.album.name}}</p>
+            <p v-if="item.alias.length">{{item.alias[0]}}</p>
           </div>
-      </div>
+          <div class="song_handle">
+            <i class="iconfont icon-gengduoxiao"></i>
+          </div>
+        </div>
+    </div>
 
-      <div class="playlist" v-if="playlist.length">
-        <div class="result_title">歌单</div>
-        <div class="play_item" v-for="(item, index) in playlist" :key="index">
-          <div class="play_pic"><img :src="item.coverImgUrl" alt=""></div>
-          <div class="play_info">
-            <p class="play_name">{{item.name}}</p>
-            <p>{{item.trackCount}}首音乐  <span style="margin-left: 25px;">播放{{item.playCount}}次</span></p>
-          </div>
+    <div class="playlist" v-if="playlist.length">
+      <div class="result_title">歌单</div>
+      <div class="play_item" v-for="(item, index) in playlist" :key="index" @click="toPlaylist(item)">
+        <div class="play_pic"><img :src="item.coverImgUrl" alt=""></div>
+        <div class="play_info">
+          <p class="play_name">{{item.name}}</p>
+          <p>{{item.trackCount}}首音乐  <span style="margin-left: 25px;">播放{{item.playCount}}次</span></p>
         </div>
       </div>
     </div>
+  </div>
 </template>
 
 <script>
+import Loading from '@/components/loading'
+
 export default {
+  components: {
+    Loading
+  },
   data () {
     return {
       songs: [],
-      playlist: []
+      playlist: [],
+      loading: false
     }
   },
   computed: {
@@ -48,11 +55,20 @@ export default {
   },
 
   onLoad (options) {
+    this.loading = true
     this.$fly.get('http://localhost:3000/search/suggest?keywords=' + options.keywords).then(res => {
       let data = res.data.result
       this.songs = data.songs
       this.playlist = data.playlists
+      this.loading = false
     })
+  },
+
+  methods: {
+    // 点击进入歌单详情
+    toPlaylist (item) {
+      wx.navigateTo({url: '../playlist/main?id=' + item.id})
+    }
   }
 }
 </script>
