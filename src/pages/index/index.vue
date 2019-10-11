@@ -4,7 +4,7 @@
     <div class="top_search">
       <div class="icon"><i class="iconfont icon-luyin" @click="toPage('../listenMusic/main')"></i></div>
       <div class="search_box" @click="toSeach">
-        <i class="iconfont icon-sousuo"></i>{{searchDefault}}
+        <i class="iconfont icon-sousuo"></i>{{searchDefault.showKeyword}}
       </div>
     </div>
 
@@ -81,7 +81,7 @@ export default {
       this.$fly.get('http://localhost:3000/search/default').then(res => {
         let data = res.data
         if (data.code === 200) {
-          this.searchDefault = data.data.showKeyword
+          this.searchDefault = data.data
         }
       })
     },
@@ -92,7 +92,8 @@ export default {
 
     // 跳转搜索页面
     toSeach () {
-      wx.navigateTo({url: '../search/main?default=' + this.searchDefault})
+      let str = JSON.stringify(this.searchDefault)
+      wx.navigateTo({url: '../search/main?default=' + str})
     },
 
     // 获取音乐轮播数据

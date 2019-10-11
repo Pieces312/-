@@ -7,7 +7,7 @@
         <input type="text" v-model="searchWord"
                @input='searchResult(searchWord)'
                @confirm="search"
-               :placeholder="defaultKeyword">
+               :placeholder="defaultKeyword.showKeyword">
       </div>
       <div class="cancel">
         <span @click="back">取消</span>
@@ -68,7 +68,7 @@ export default {
 
   data () {
     return {
-      defaultKeyword: '',
+      defaultKeyword: null,
       hotData: [],
       searchWord: '',
       songs: [],
@@ -77,7 +77,7 @@ export default {
   },
 
   onLoad (options) {
-    this.defaultKeyword = options.default
+    this.defaultKeyword = JSON.parse(options.default)
     // let arr = wx.getStorageSync('history')
     // console.log(arr)
   },
@@ -114,7 +114,7 @@ export default {
     },
 
     search () {
-      let word = this.searchWord || this.defaultKeyword
+      let word = this.searchWord || this.defaultKeyword.realkeyword
       this.toResult(word)
     },
 
