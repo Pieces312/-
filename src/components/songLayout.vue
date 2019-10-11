@@ -1,5 +1,8 @@
 <template>
-    <div class="song_layout" @touchend="dropDownEnd" @touchmove="dropDown">
+    <div class="song_layout" 
+         @touchend="dropDownEnd" 
+         @touchmove="dropDown"
+         :class="{'sticky': stickyTop}">
       <div class="top_tips">{{tipWord}}</div>
       <div class="layout_head" :style="{'height': _height + 'px'}">
           <div class="mask" :style="{'background-color': maskColor, 'opacity': _opacity, 'width': scaleNum + '%', filter: 'blur('+ filter +'px)'}">
@@ -10,7 +13,12 @@
           </div>
       </div>
       <div class="layout_content" id="layout_content">
+        <div class="lc_head">
+          <slot name="lc_head"></slot>
+        </div>
+        <div class="lc_content">
           <slot name="content"></slot>
+        </div>
       </div>
     </div>
 </template>
@@ -35,10 +43,12 @@ export default {
       default: true
     }
   },
+
   data () {
     return {
       defaultHeight: this.height,
-      scaleNum: 110
+      scaleNum: 110,
+      stickyTop: false
     }
   },
 
@@ -53,7 +63,19 @@ export default {
     }
   },
 
-  mounted () {
+  // 页面滚动事件
+  onPageScroll (e) {
+    const newly = wx.createSelectorQuery()
+
+    newly.select('#layout_content').boundingClientRect(rect => {
+      let top = rect.top
+      console.log(top)
+      if (top <= 10) {
+        this.stickyTop = true
+      } else {
+        this.stickyTop = false
+      }
+    }).exec()
   },
 
   methods: {
@@ -75,7 +97,15 @@ export default {
 
 <style lang="less" scoped>
 .song_layout {
+  width: 100%;
   overflow: visible;
+
+  &.sticky {
+    position: fixed;
+    top: -220px;
+    right: 0;
+    left: 0;
+  }
 
   .top_tips {
     width: 100%;
@@ -93,47 +123,47 @@ export default {
   }
 
   .layout_head {
-      position: relative;
-      overflow: hidden;
-      background-color: #686565;
-      background-position: center center;
-      background-size: cover;
+    position: relative;
+    overflow: hidden;
+    background-color: #686565;
+    background-position: center center;
+    background-size: cover;
 
-      .mask {
-          width: 110%;
-          height: 110%;
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-           z-index: 1;
+    .mask {
+      width: 110%;
+      height: 110%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+        z-index: 1;
 
-          img {
-            width: 100%;
-            height: 100%;
-          }
+      img {
+        width: 100%;
+        height: 100%;
       }
+    }
 
-      .layout_head_content {
-          padding: 15px;
-          width: 100%;
-          height: 100%;
-          position: absolute;
-          top: 0;
-          left: 0;
-          z-index: 5;
-      }
+    .layout_head_content {
+      padding: 15px;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 5;
+    }
   }
 
   .layout_content {
-      margin-top: -15px;
-      padding: 0 15px;
-      width: 100%;
-      min-height: 40px;
-      position: relative;
-      z-index: 9;
-      background: #fff;
-      border-radius: 15px 15px 0 0;
+    margin-top: -15px;
+    padding: 0 15px;
+    width: 100%;
+    min-height: 40px;
+    position: relative;
+    z-index: 9;
+    background: #fff;
+    border-radius: 15px 15px 0 0;
   }
 }
 

@@ -45,12 +45,14 @@
         </div>
 
         <!-- 列表部分 -->
-        <div slot="content">
+        <div slot="lc_head">
           <div class="ct-head">
             <p> <i class="iconfont icon-bofang"></i> 播放全部 <span class="total">(共{{playlist.trackCount}}首)</span></p>
             <span class="subscribe">+ 收藏({{playlist.subscribedCount}})</span>
           </div>
-
+        </div>
+        
+        <div slot="content">
           <div class="ct-songs">
             <div class="song-item" 
                  v-for="(item, index) in playlist.tracks" 

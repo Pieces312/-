@@ -60,10 +60,8 @@ export default {
     this.$fly.get('http://localhost:3000/search/suggest?keywords=' + options.keywords).then(res => {
       let data = res.data.result
       this.loading = false
-      if (data.songs) {
-        this.songs = data.songs
-        this.playlist = data.playlists
-      }
+      this.songs = data.songs || []
+      this.playlist = data.playlists || []
     })
   },
 

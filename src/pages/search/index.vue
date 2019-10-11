@@ -6,7 +6,7 @@
         <i class="iconfont icon-sousuo"></i>
         <input type="text" v-model="searchWord"
                @input='searchResult(searchWord)'
-               @confirm="search"
+               @confirm="toResult(searchWord || defaultKeyword.realkeyword)"
                :placeholder="defaultKeyword.showKeyword">
       </div>
       <div class="cancel">
@@ -14,17 +14,6 @@
         <i class="iconfont icon-geshou"></i>
       </div>
     </div>
-
-    <!-- 搜索历史 -->
-    <!-- <div class="search_history">
-      <div class="search_title">
-        搜索历史
-        <i class="clear_history iconfont icon-icon_delete"></i>
-      </div>
-      <div class="search_list">
-        <div class="search_item" v-for="item in 6" :key="item">往后余生</div>
-      </div>
-    </div> -->
 
     <!-- 热搜榜 -->
     <div class="search_hot">
@@ -78,8 +67,6 @@ export default {
 
   onLoad (options) {
     this.defaultKeyword = JSON.parse(options.default)
-    // let arr = wx.getStorageSync('history')
-    // console.log(arr)
   },
 
   onShow () {
@@ -113,11 +100,6 @@ export default {
       })
     },
 
-    search () {
-      let word = this.searchWord || this.defaultKeyword.realkeyword
-      this.toResult(word)
-    },
-
     // 跳转到结果页面
     toResult (word) {
       // this.searchHistory.push(item.keyword)
@@ -127,7 +109,6 @@ export default {
       //   key: 'history',
       //   data: str
       // })
-      console.log(word)
       wx.navigateTo({url: '../searchResult/main?keywords=' + word})
     }
   }
