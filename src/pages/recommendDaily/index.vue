@@ -1,11 +1,14 @@
 <template>
   <div>
-    <songLayout v-if="bg" height="150px"
+    <newSongLayout v-if='bg' height="150px"
+      :bgImg="bg.pic"
+      tipWord='根据你的音乐口味，为你推荐好音乐'></newSongLayout>
+    <!-- <songLayout v-if="bg" height="150px"
       :bgImg="bg.pic"
       tipWord='根据你的音乐口味，为你推荐好音乐'
       maskColor="#fff"
       maskOpacity="60">
-        <!-- 头部样式 -->
+        头部样式 
         <div slot="header">
           <div class="head">
             <div class="date">
@@ -17,7 +20,7 @@
           </div>
         </div>
 
-        <!-- 列表部分 -->
+         列表部分 
         <div slot="content">
           <div class="ct-head">
             <p> <i class="iconfont icon-bofang"></i> 播放全部</p>
@@ -32,7 +35,8 @@
           </div>
         </div>
 
-    </songLayout>
+    </songLayout> -->
+
     <!-- 弹窗组件 -->
     <mptoast />
   </div>
@@ -42,12 +46,14 @@
 <script>
 import mptoast from 'mptoast'
 import songLayout from '@/components/songLayout'
+import newSongLayout from '@/components/newSongLayout'
 import commonSong from '@/components/common-song'
 import { getRandomItem } from '@/utils'
 
 export default {
   components: {
     songLayout,
+    newSongLayout,
     commonSong,
     mptoast
   },
@@ -68,7 +74,7 @@ export default {
 
   onShow () {
     this.getBannerData()
-    this.getSongList()
+    // this.getSongList()
   },
 
   methods: {

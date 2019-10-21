@@ -1,8 +1,7 @@
 <template>
     <div class="song_layout" 
          @touchend="dropDownEnd" 
-         @touchmove="dropDown"
-         :class="{'sticky': stickyTop}">
+         @touchmove="dropDown">
       <div class="top_tips">{{tipWord}}</div>
       <div class="layout_head" :style="{'height': _height + 'px'}">
           <div class="mask" :style="{'background-color': maskColor, 'opacity': _opacity, 'width': scaleNum + '%', filter: 'blur('+ filter +'px)'}">
@@ -12,7 +11,8 @@
               <slot name="header"></slot>
           </div>
       </div>
-      <div class="layout_content" id="layout_content">
+      <div class="layout_content" id="layout_content"
+         :class="{'sticky': stickyTop}">
         <div class="lc_head">
           <slot name="lc_head"></slot>
         </div>
@@ -98,14 +98,7 @@ export default {
 <style lang="less" scoped>
 .song_layout {
   width: 100%;
-  overflow: visible;
-
-  &.sticky {
-    position: fixed;
-    top: -220px;
-    right: 0;
-    left: 0;
-  }
+  overflow: scroll;
 
   .top_tips {
     width: 100%;
@@ -164,6 +157,13 @@ export default {
     z-index: 9;
     background: #fff;
     border-radius: 15px 15px 0 0;
+
+    // &.sticky {
+    //   position: fixed;
+    //   top: 0;
+    //   right: 0;
+    //   left: 0;
+    // }
   }
 }
 

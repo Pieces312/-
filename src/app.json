@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/index/main",
     "pages/recommendDaily/main",
+    "pages/index/main",
     "pages/playlist/main",
     "pages/songDetail/main",
     "pages/searchResult/main",
