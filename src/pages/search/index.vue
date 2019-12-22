@@ -5,9 +5,10 @@
       <div class="search_box">
         <i class="iconfont icon-sousuo"></i>
         <input type="text" v-model="searchWord"
+               autofocus
                @input='searchResult(searchWord)'
-               @confirm="toResult(searchWord || defaultKeyword.realkeyword)"
-               :placeholder="defaultKeyword.showKeyword">
+               @confirm="toResult(searchWord || realword)"
+               :placeholder="showword">
       </div>
       <div class="cancel">
         <span @click="back">取消</span>
@@ -57,7 +58,8 @@ export default {
 
   data () {
     return {
-      defaultKeyword: null,
+      showword: '',
+      realword: '',
       hotData: [],
       searchWord: '',
       songs: [],
@@ -66,7 +68,9 @@ export default {
   },
 
   onLoad (options) {
-    this.defaultKeyword = JSON.parse(options.default)
+    console.log(options)
+    this.showword = options.showword
+    this.realword = options.realword
   },
 
   onShow () {

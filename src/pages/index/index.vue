@@ -92,8 +92,10 @@ export default {
 
     // 跳转搜索页面
     toSeach () {
-      let str = JSON.stringify(this.searchDefault)
-      wx.navigateTo({url: '../search/main?default=' + str})
+      // let str = JSON.stringify(this.searchDefault)
+      let showword = this.searchDefault.showKeyword
+      let realword = this.searchDefault.realkeyword
+      wx.navigateTo({url: '../search/main?showWord=' + showword + '&realword=' + realword})
     },
 
     // 获取音乐轮播数据

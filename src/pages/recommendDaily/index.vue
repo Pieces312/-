@@ -1,14 +1,14 @@
 <template>
   <div>
-    <newSongLayout v-if='bg' height="150px"
+    <!-- <newSongLayout v-if='bg' height="150px"
       :bgImg="bg.pic"
-      tipWord='根据你的音乐口味，为你推荐好音乐'></newSongLayout>
-    <!-- <songLayout v-if="bg" height="150px"
+      tipWord='根据你的音乐口味，为你推荐好音乐'></newSongLayout> -->
+    <newSongLayout v-if="bg" height="150px"
       :bgImg="bg.pic"
       tipWord='根据你的音乐口味，为你推荐好音乐'
       maskColor="#fff"
       maskOpacity="60">
-        头部样式 
+        <!-- 头部样式  -->
         <div slot="header">
           <div class="head">
             <div class="date">
@@ -20,22 +20,25 @@
           </div>
         </div>
 
-         列表部分 
-        <div slot="content">
-          <div class="ct-head">
-            <p> <i class="iconfont icon-bofang"></i> 播放全部</p>
-            <span class="multiple">多选</span>
+        <div>
+          <div slot="cl-head">
+            <div class="ct-head">
+              <p> <i class="iconfont icon-bofang"></i> 播放全部</p>
+              <span class="multiple">多选</span>
+            </div>
           </div>
 
-          <div class="ct-songs">
-            <commonSong v-for="item in songList" 
-              :key="item.id"
-              :songInfo='item'
-              type="pictrue" />
+          <!-- 列表部分  -->
+          <div slot="content">
+            <div class="ct-songs">
+              <commonSong v-for="item in songList" 
+                :key="item.id"
+                :songInfo='item'
+                type="pictrue" />
+            </div>
           </div>
         </div>
-
-    </songLayout> -->
+    </newSongLayout>
 
     <!-- 弹窗组件 -->
     <mptoast />
@@ -68,7 +71,7 @@ export default {
       month: month < 10 ? '0' + month : month,
       imgUrls: [],
       bg: null,
-      songList: []
+      songList: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']
     }
   },
 

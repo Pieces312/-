@@ -6,13 +6,16 @@
         <div class="top-tips" v-if="tipWord">{{tipWord}}</div>
         <div class="layout-body">
             <div class="layout-head" :style='{"height": _h + "px"}'>
-                <div>123</div>
+                <slot name='header'></slot>
             </div>
-            <div class="layout-content" :class="{'hidden': hidden}">
-                <div class="head">
-                    <p>123456789</p>
+            <div class="layout-content">
+                <div class="head" 
+                     :style="{'padding-top': hidden ? '20px' : '', 'background': hidden ? 'rgba(0,0,0,.5) url('+bgImg+')' : '', 'background-size': '100% ' + _h + 'px'}">
+                    <slot name='cl-head'></slot>
                 </div>
-                <div v-for="item in 60" :key='item'>{{item+1}}</div>
+                <div>
+                    <slot name='content'></slot>
+                </div>
             </div>
         </div>
     </div>
@@ -88,7 +91,7 @@ export default {
 
 .layout-body {
     width: 100%;
-    position: absolute;
+    position: relative;
     top: 0;
     left: 0;
     z-index: 3;
@@ -102,10 +105,10 @@ export default {
     margin-top: -20px;
     text-align: center;
     font-size: 20px;
+    background: #fff;
+    border-radius: 10px 10px 0 0;
 
     .head {
-        margin-top: 20px;
-        padding-top: 10px;
         position: -webkit-sticky;
         position: sticky;
         top: 0;

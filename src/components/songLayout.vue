@@ -11,12 +11,10 @@
               <slot name="header"></slot>
           </div>
       </div>
-      <div class="layout_content" id="layout_content"
-         :class="{'sticky': stickyTop}">
+      <div class="layout_content">
         <div class="lc_head">
           <slot name="lc_head"></slot>
         </div>
-        <div class="lc_content">
           <slot name="content"></slot>
         </div>
       </div>
@@ -47,8 +45,7 @@ export default {
   data () {
     return {
       defaultHeight: this.height,
-      scaleNum: 110,
-      stickyTop: false
+      scaleNum: 110
     }
   },
 
@@ -61,21 +58,6 @@ export default {
     _opacity () {
       return this.maskOpacity < 1 ? this.maskOpacity : this.maskOpacity / 100
     }
-  },
-
-  // 页面滚动事件
-  onPageScroll (e) {
-    const newly = wx.createSelectorQuery()
-
-    newly.select('#layout_content').boundingClientRect(rect => {
-      let top = rect.top
-      console.log(top)
-      if (top <= 10) {
-        this.stickyTop = true
-      } else {
-        this.stickyTop = false
-      }
-    }).exec()
   },
 
   methods: {
@@ -157,13 +139,6 @@ export default {
     z-index: 9;
     background: #fff;
     border-radius: 15px 15px 0 0;
-
-    // &.sticky {
-    //   position: fixed;
-    //   top: 0;
-    //   right: 0;
-    //   left: 0;
-    // }
   }
 }
 

@@ -1,9 +1,9 @@
 {
   "pages": [
-    "pages/recommendDaily/main",
     "pages/index/main",
-    "pages/playlist/main",
     "pages/songDetail/main",
+    "pages/recommendDaily/main",
+    "pages/playlist/main",
     "pages/searchResult/main",
     "pages/account/main",
     "pages/login/main",
@@ -70,5 +70,6 @@
     ],
     "position": "bottom"
   },
-  "sitemapLocation": "sitemap.json"
+  "sitemapLocation": "sitemap.json",
+  "requiredBackgroundModes": ["audio", "location"]
 }

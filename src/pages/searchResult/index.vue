@@ -3,7 +3,10 @@
   <div v-else class="result_wrap">
     <div class="result_title">单曲</div>
     <div class="songs_list" v-if="songs.length">
-        <div class="song_item" v-for="(item, index) in songs" :key="index">
+        <div class="song_item" 
+             v-for="(item, index) in songs" 
+             :key="index"
+             @click="toSongDetail(item)">
           <div class="song_info">
             <p class="song_name">{{item.name}}</p>
             <p>{{item.artists[0].name}} {{item.album.name}}</p>
@@ -69,6 +72,11 @@ export default {
     // 点击进入歌单详情
     toPlaylist (item) {
       wx.navigateTo({url: '../playlist/main?id=' + item.id})
+    },
+
+    // 到播放页面
+    toSongDetail (item) {
+      wx.navigateTo({url: '../songDetail/main?id=' + item.id})
     }
   }
 }
